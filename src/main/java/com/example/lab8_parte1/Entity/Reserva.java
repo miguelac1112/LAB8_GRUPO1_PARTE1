@@ -11,9 +11,7 @@ public class Reserva {
     @Column(name = "idReserva", nullable = false)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "Pelicula_idPelicula", nullable = false)
-    private Pelicula peliculaIdpelicula;
+    private Integer idPelicula;
 
     @Column(name = "fecha", nullable = false)
     private LocalDate fecha;
@@ -32,12 +30,13 @@ public class Reserva {
         this.id = id;
     }
 
-    public Pelicula getPeliculaIdpelicula() {
-        return peliculaIdpelicula;
+
+    public Integer getIdPelicula() {
+        return idPelicula;
     }
 
-    public void setPeliculaIdpelicula(Pelicula peliculaIdpelicula) {
-        this.peliculaIdpelicula = peliculaIdpelicula;
+    public void setIdPelicula(Integer idPelicula) {
+        this.idPelicula = idPelicula;
     }
 
     public LocalDate getFecha() {
