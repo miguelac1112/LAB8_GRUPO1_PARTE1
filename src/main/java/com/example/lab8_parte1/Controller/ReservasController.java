@@ -24,10 +24,13 @@ public class ReservasController {
     public ResponseEntity<HashMap<String, String>> guardarReserva(
             @RequestBody Reserva reserva){
         HashMap<String, String> hashMap =new HashMap<>();
+        System.out.println(reserva.getIdPelicula());
+        System.out.println(reserva.getIdPelicula().getClass());
         reservaRepository.save(reserva);
         hashMap.put("estado", "creado");
         return ResponseEntity.status(HttpStatus.CREATED).body(hashMap);
     }
+
 
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
