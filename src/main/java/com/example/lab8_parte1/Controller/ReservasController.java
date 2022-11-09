@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 
 @RestController
+@RequestMapping("/reservas")
 public class ReservasController {
     @Autowired
     PeliculaRepository peliculaRepository;
