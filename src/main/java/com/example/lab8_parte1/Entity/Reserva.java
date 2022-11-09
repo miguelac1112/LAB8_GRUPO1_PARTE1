@@ -14,13 +14,13 @@ public class Reserva {
     private Integer idPelicula;
 
     @Column(name = "fecha", nullable = false)
-    private LocalDate fecha;
+    private String fecha;
 
     @Column(name = "horaInicio", nullable = false)
-    private LocalTime horaInicio;
+    private String horaInicio;
 
     @Column(name = "horaFin", nullable = false)
-    private LocalTime horaFin;
+    private String horaFin;
 
     public Integer getId() {
         return id;
@@ -39,28 +39,27 @@ public class Reserva {
         this.idPelicula = idPelicula;
     }
 
-    public LocalDate getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(LocalDate fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 
-    public LocalTime getHoraInicio() {
+    public String getHoraInicio() {
         return horaInicio;
     }
 
-    public void setHoraInicio(LocalTime horaInicio) {
+    public void setHoraInicio(String horaInicio) {
         this.horaInicio = horaInicio;
     }
 
-    public LocalTime getHoraFin() {
+    public String getHoraFin() {
         return horaFin;
     }
 
-    public void setHoraFin(LocalTime horaFin) {
+    public void setHoraFin(String horaFin) {
         this.horaFin = horaFin;
     }
-
 }

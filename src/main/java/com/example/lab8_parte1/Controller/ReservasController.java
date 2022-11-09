@@ -27,8 +27,26 @@ public class ReservasController {
     public ResponseEntity<HashMap<String, String>> guardarReserva(
             @RequestBody Reserva reserva){
         HashMap<String, String> hashMap =new HashMap<>();
-        System.out.println(reserva.getIdPelicula());
-        System.out.println(reserva.getIdPelicula().getClass());
+        /*
+        String[] fecha = reserva.getFecha().split(".");
+        String dia=null;
+        String mes=null;
+        String anho=null;
+        for(String caracteres:fecha){
+            if(caracteres.charAt(1) == 'd'){
+                dia=caracteres.sl
+            }
+        }
+        String horaInicio = reserva.getHoraInicio();
+        if( horaInicio.contains("pm") ){
+
+        }else if (horaInicio.contains("am")){
+
+        }else{
+            hashMap.put("error", "horaInicio Incorrecta");
+        }
+        String horaFin = reserva.getHoraFin();
+*/
         reservaRepository.save(reserva);
         hashMap.put("estado", "creado");
         return ResponseEntity.status(HttpStatus.CREATED).body(hashMap);
