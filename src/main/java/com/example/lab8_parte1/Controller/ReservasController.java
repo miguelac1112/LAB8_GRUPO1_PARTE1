@@ -1,5 +1,6 @@
 package com.example.lab8_parte1.Controller;
 
+import com.example.lab8_parte1.Entity.Pelicula;
 import com.example.lab8_parte1.Entity.Reserva;
 import com.example.lab8_parte1.Repositories.PeliculaRepository;
 import com.example.lab8_parte1.Repositories.ReservaRepository;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -32,7 +34,10 @@ public class ReservasController {
         return ResponseEntity.status(HttpStatus.CREATED).body(hashMap);
     }
 
-
+    @GetMapping("/lista")
+    public List<Reserva> reservaList(){
+        return reservaRepository.findAll();
+    }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<HashMap<String, String>> gestionarExcepcion(HttpServletRequest request) {
@@ -88,11 +93,10 @@ public class ReservasController {
                 reservaRepository.deleteById(id);
                 hashMap.put("status","ok");
             }catch (Exception e){
-                hashMap.put("status", "error-4000"); // "ocurrió un error al borrar el producto"
+                hashMap.put("status", "error-4000 - Ha ocurrido un problema al borrar el producto");
             }
         }else{
-            hashMap.put("status", "error-3000"); //en una documentación donde diga que error-3000 = "no se borró
-            // el producto porque el id no existe
+            hashMap.put("status", "error-3000 - El id que desea borrar no existe");
         }
         return ResponseEntity.ok(hashMap);
     }
