@@ -2,6 +2,7 @@ package com.example.lab8_parte1.Controller;
 
 
 import com.example.lab8_parte1.Entity.Pelicula;
+import com.example.lab8_parte1.Repositories.PeliculaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,9 +16,9 @@ import java.util.List;
 @RequestMapping(value = "/peliculas")
 public class PeliculasController {
     @Autowired
-    PeliculasController peliculasController;
+    PeliculaRepository peliculaRepository;
     @GetMapping("/lista")
-    public List<Pelicula> supplierList(){
-        return peliculasController.findAll();
+    public List<Pelicula> peliculasList(){
+        return peliculaRepository.findAll();
     }
 }
