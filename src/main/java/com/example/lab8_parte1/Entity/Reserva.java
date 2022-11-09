@@ -8,11 +8,9 @@ import java.time.LocalTime;
 @Table(name = "reserva")
 public class Reserva {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idReserva", nullable = false)
     private Integer id;
 
-    @Column(name = "Pelicula_idPelicula", nullable = false)
     private Integer idPelicula;
 
     @Column(name = "fecha", nullable = false)
@@ -31,6 +29,7 @@ public class Reserva {
     public void setId(Integer id) {
         this.id = id;
     }
+
 
     public Integer getIdPelicula() {
         return idPelicula;

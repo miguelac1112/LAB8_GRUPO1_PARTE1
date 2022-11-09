@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/reservas")
@@ -42,4 +43,58 @@ public class ReservasController {
         }
         return ResponseEntity.badRequest().body(hashMap);
     }
+
+    @PutMapping("/actualizar/{id}")
+    public ResponseEntity<HashMap<String,Object>> actualizarReservaValidandoId(@RequestBody Reserva reserva,
+                                                                                      @RequestParam("id") String idStr){
+        HashMap<String,Object> hashMap = new HashMap<>();
+
+        try{
+            int id = Integer.parseInt(idStr);
+            Optional<Reserva> optionalProduct = reservaRepository.findById(id);
+            if(optionalProduct.isPresent()){
+                Reserva reservaOriginal = optionalProduct.get();
+
+                if(reserva.getIdPelicula() != null)
+                    reservaOriginal.setIdPelicula(reserva.getIdPelicula());
+                if(reserva.getFecha() != null)
+                    reservaOriginal.setFecha(reserva.getFecha());
+                if(reserva.getHoraInicio() != null)
+                    reservaOriginal.setHoraInicio(reserva.getHoraInicio());
+                if(reserva.getHoraFin() != null)
+                    reservaOriginal.setHoraFin(reserva.getHoraFin());
+
+                reservaRepository.save(reservaOriginal);
+                hashMap.put("status", "actualizado");
+                return ResponseEntity.status(HttpStatus.CREATED).body(hashMap);
+            }else{
+                hashMap.put("status","error");
+                hashMap.put("msg","la reserva para actualizar no existe");
+                return ResponseEntity.ok(hashMap);
+            }
+        }catch (NumberFormatException e){
+            hashMap.put("existe",false);
+            hashMap.put("msg","El id no es un número!!!");
+            return ResponseEntity.badRequest().body(hashMap);
+        }
+    }
+
+    @DeleteMapping("")
+    public ResponseEntity<HashMap<String,String>> borrarReserva(@RequestParam("id") int id){
+        HashMap<String,String> hashMap = new HashMap<>();
+        Optional<Reserva> optionalProduct = reservaRepository.findById(id);
+        if(optionalProduct.isPresent()){
+            try {
+                reservaRepository.deleteById(id);
+                hashMap.put("status","ok");
+            }catch (Exception e){
+                hashMap.put("status", "error-4000"); // "ocurrió un error al borrar el producto"
+            }
+        }else{
+            hashMap.put("status", "error-3000"); //en una documentación donde diga que error-3000 = "no se borró
+            // el producto porque el id no existe
+        }
+        return ResponseEntity.ok(hashMap);
+    }
+
 }
